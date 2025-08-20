@@ -1,0 +1,36 @@
+# Binaries
+csvsql
+*.exe
+*.out
+*.o
+
+# Build and dependency artifacts
+/build/
+bin/
+vendor/
+*.log
+
+# IDE/editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Go module files (if vendoring is not used)
+go.sum
+
+# Test output
+*.test
+
+# Configs and secrets (if any)
+.env
+*.local
+
+# Ignore Excel/CSV test data (if any)
+*.csv
+*.xlsx
