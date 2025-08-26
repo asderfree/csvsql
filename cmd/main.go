@@ -16,8 +16,6 @@ import (
 )
 
 func main() {
-	// Load configuration
-	cfg := config.Load()
 
 	// Expect file paths as command-line arguments
 	if len(os.Args) < 2 {
@@ -26,7 +24,7 @@ func main() {
 	}
 
 	// Use configured database (default: in-memory SQLite)
-	db, err := sql.Open("sqlite3", cfg.DatabasePath)
+	db, err := sql.Open("sqlite3", config.Gcfg.DatabasePath)
 	if err != nil {
 		log.Fatal("Failed to open database:", err)
 	}

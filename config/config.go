@@ -12,6 +12,12 @@ type Config struct {
 	Verbose      bool
 }
 
+func (c *Config) isInMemoryDB() bool {
+	return c.DatabasePath == ":memory:"
+}
+
+var Gcfg *Config
+
 // Load loads configuration from environment variables and defaults
 func Load() *Config {
 	config := &Config{
@@ -36,4 +42,31 @@ func Load() *Config {
 	}
 
 	return config
+}
+
+// if the Gcfg's path is not exist, just create this file:
+func creatDbFile(f string) {
+	info, err := os.Stat(f)
+	if err == nil && !info.IsDir() {
+		// File exists and is not a directory, nothing to do
+		return
+	}
+	if os.IsNotExist(err) {
+		file, err := os.Create(f)
+		if err != nil {
+			// Could not create file, optionally handle error
+			return
+		}
+		file.Close()
+	}
+	// If err is not nil and not IsNotExist, do nothing (could log if verbose)
+	// If file exists but is a directory, do nothing
+	// FIX if the file already exists, try to exit the program and panic the message.
+}
+
+func init() {
+	Gcfg = Load()
+	if !Gcfg.isInMemoryDB() {
+		creatDbFile(Gcfg.DatabasePath)
+	}
 }

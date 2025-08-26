@@ -27,11 +27,12 @@ dana/
 └── README.md           # This file
 ```
 
-## Installation
+## Build/Installation
 
 ```bash
 go mod tidy
 go build -o csvsql ./cmd
+mv csvsql /usr/bin # any other path under your $PATH 
 ```
 
 ## Usage
